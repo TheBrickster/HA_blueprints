@@ -1,5 +1,5 @@
 blueprint:
-  name: Frigate Notifications (0.12.0.2)
+  name: Frigate Notifications (0.12.0.2) - OH v0.3
   description: |
     ## Frigate Notifications
 
@@ -747,11 +747,12 @@ action:
                                   destructive: true
                       - conditions: "{{ tv }}"
                         sequence:
-                          - service: input_datetime.set_datetime
-                            target:
-                              entity_id: input_datetime.rear_courtyard_last_notified
-                            data:
-                              timestamp: "{{ now().timestamp() | timestamp_local }}"
+                          - alias: Set a variable
+                            event: set_variable
+                            event_data:
+                              key: rear_courtyard_last_notified
+                              value:
+                                timestamp: "{{ now().timestamp() | timestamp_local }}"
                           - service: "notify.{{ group_target }}"
                             data:
                               title: "{{title}}"
@@ -796,6 +797,12 @@ action:
                                     uri: "{{url_3}}"
                                     destructive: true
                     default:
+                      - alias: Set a variable
+                        event: set_variable
+                        event_data:
+                          key: rear_courtyard_last_notified
+                          value:
+                            timestamp: "{{ now().timestamp() | timestamp_local }}"
                       - service: "notify.{{ group_target }}"
                         data:
                           title: "{{title}}"
