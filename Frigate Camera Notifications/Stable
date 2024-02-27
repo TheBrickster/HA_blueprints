@@ -998,6 +998,11 @@ action:
                                           uri: "{{url_3}}"
                                           destructive: true
                           default:
+                            - service: input_datetime.set_datetime
+                              target:
+                                entity_id: input_datetime.rear_courtyard_last_notified
+                              data:
+                                timestamp: "{{ now().timestamp() | timestamp_local }}"
                             - service: "notify.{{ group_target }}"
                               data:
                                 title: "{{title}}"
