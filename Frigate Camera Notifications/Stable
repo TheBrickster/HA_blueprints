@@ -747,12 +747,11 @@ action:
                                   destructive: true
                       - conditions: "{{ tv }}"
                         sequence:
-                          - alias: Set a variable
-                            event: set_variable
+                          - event: set_variable
                             event_data:
-                              key: rear_courtyard_last_notified
-                              value:
-                                timestamp: "{{ now().timestamp() | timestamp_local }}"
+                              key: frigate_last_notified
+                              value: {{ camera }}
+                              set_timestamp: true
                           - service: "notify.{{ group_target }}"
                             data:
                               title: "{{title}}"
@@ -797,12 +796,11 @@ action:
                                     uri: "{{url_3}}"
                                     destructive: true
                     default:
-                      - alias: Set a variable
-                        event: set_variable
+                      - event: set_variable
                         event_data:
-                          key: rear_courtyard_last_notified
-                          value:
-                            timestamp: "{{ now().timestamp() | timestamp_local }}"
+                          key: frigate_last_notified
+                          value: {{ camera }}
+                          set_timestamp: true
                       - service: "notify.{{ group_target }}"
                         data:
                           title: "{{title}}"
@@ -960,6 +958,11 @@ action:
                                         destructive: true
                             - conditions: "{{ tv }}"
                               sequence:
+                                - event: set_variable
+                                  event_data:
+                                    key: frigate_last_notified
+                                    value: {{ camera }}
+                                    set_timestamp: true
                                 - service: "notify.{{ group_target }}"
                                   data:
                                     title: "{{title}}"
@@ -1005,12 +1008,11 @@ action:
                                           uri: "{{url_3}}"
                                           destructive: true
                           default:
-                            - alias: Set a variable
-                              event: set_variable
+                            - event: set_variable
                               event_data:
-                                key: rear_courtyard_last_notified
-                                value:
-                                  timestamp: "{{ now().timestamp() | timestamp_local }}"
+                                key: frigate_last_notified
+                                value: {{ camera }}
+                                set_timestamp: true
                             - service: "notify.{{ group_target }}"
                               data:
                                 title: "{{title}}"
